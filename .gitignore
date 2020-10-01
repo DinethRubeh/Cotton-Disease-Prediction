@@ -1,9 +1,10 @@
 .ipynb_checkpoints/
 /data
 /.vscode
-*.h5
-*.png
 *.pyc
 Model Training -  Resnet50.ipynb
 Model Training - CNN.ipynb
 Model Training - ResNet152V2, VGG16, InceptionV3 etc.ipynb
+models/model_resnet152v2.h5
+models/model_cnn_opt.h5
+models/model_inceptionv3.h5

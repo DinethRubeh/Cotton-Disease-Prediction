@@ -1,7 +1,11 @@
 # Cotton-Disease-Prediction
-Cotton disease prediction model training was done using pre-trained models such as **ResNet50, ResNet152V2, VGG19, InceptionV3 and an optimized CNN model**.
+Cotton disease prediction model training was done using,
+ - pre-trained models such as **ResNet50, ResNet152V2, VGG19, InceptionV3** 
+ - an **optimized CNN model**
 
 All models except ResNet50 showed excellent accuracy but ultimately **VGG19** model was chosen because of it's ***less model size*** compared to others.
+
+ - *CNN Model showed great accuracy but it had the largest model size. Used Data augmentation techniques and keras-tuner to find optimal set of model parameters to obtain the best CNN model*
 
 All models were trained on Google Colab environment using GPUs.
 

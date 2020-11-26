@@ -1,8 +1,8 @@
 # Cotton-Disease-Prediction
 
 <p float="left">
-  <img src="models/images/strealit2.png" width="100" />
-  <img src="models/images/strealit2" width="100" /> 
+  <img src="models/images/streamlit3.png" width="425" />
+  <img src="models/images/streamlit2.png" width="400" /> 
 </p>
 
 ### Data

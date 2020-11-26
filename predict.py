@@ -1,5 +1,7 @@
 import numpy as np
+import streamlit as st
 
+from PIL import Image, ImageOps
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 
@@ -9,8 +11,13 @@ model_path ='models/model_vgg19.h5'
 # Load trained model
 model = load_model(model_path)
 
+@st.cache
+def predict(up_image):
+    # Saved model path
+    model_path ='models/model_vgg19.h5'
 
-def predict(image_path):
+    # Load trained model
+    model = load_model(model_path)
 
     # prediction classes
     pred_classes = {
@@ -21,10 +28,12 @@ def predict(image_path):
         }
 
     # load image and resize to original trained model image size
-    loaded_img = image.load_img(image_path, target_size=(224,224))
+    # loaded_img = image.load_img(up_image, target_size=(224,224))
+
+    # resize the uploaded image to original trained model image size
+    loaded_img = ImageOps.fit(up_image, (224,224), Image.ANTIALIAS)
 
     ## image preprocessing
-
     # convert to array format
     img = image.img_to_array(loaded_img)
     # rescale

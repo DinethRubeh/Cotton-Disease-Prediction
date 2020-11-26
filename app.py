@@ -1,74 +1,41 @@
-from flask import Flask, request
-from werkzeug.utils import secure_filename
-import os
-import flasgger
-from flasgger import Swagger
+import streamlit as st
+from PIL import Image, ImageOps
 
 from predict import predict
 
-# image upload path
-UPLOAD_FOLDER = '/uploads'
+# Sidebar sample images
+side_image_fresh_l = Image.open('data/optional_data/sample_fresh_leaf.jpg')
+side_image_dis_l = Image.open('data/optional_data/sample_dis_leaf.jpg')
+side_image_fresh_p = Image.open('data/optional_data/sample_fresh_plant.jpg')
+side_image_dis_p = Image.open('data/optional_data/sample_dis_plant.jpg')
+# Main Template image
+template_image = Image.open('data/optional_data/agri_drone1.jpg')
 
-# create directory if path does not exist
-if not os.path.exists(UPLOAD_FOLDER):
-    os.makedirs(UPLOAD_FOLDER)
+# Add sidebar title text and images
+st.sidebar.title('Sample images')
+st.sidebar.markdown('*Fresh leaf:*')
+st.sidebar.image(side_image_fresh_l, use_column_width=True)
+st.sidebar.markdown('*Diseased leaf:*')
+st.sidebar.image(side_image_dis_l, use_column_width=True)
+st.sidebar.markdown('*Fresh plant:*')
+st.sidebar.image(side_image_fresh_p, use_column_width=True)
+st.sidebar.markdown('*Diseased plant:*')
+st.sidebar.image(side_image_dis_p, use_column_width=True)
 
-# Define a flask app
-app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-Swagger(app)
+# Add streamlit title, add descriptions and load the main template image
+st.title('Cotton Disease Prediction')
+st.markdown('*This model identifies whether cotton disease is present based on plant & leaf pictures.*')
+st.image(template_image, use_column_width=True)
+st.write('')
+st.markdown('**Upload a Cotton Plant or Leaf picture ...**')
 
-# save request image file
-def save_image(im):
-    """
-    So what does that secure_filename() function actually do? 
-    Now the problem is that there is that principle called “never trust user input”. This is also true for the filename of an uploaded file. 
-    All submitted form data can be forged, and filenames can be dangerous. For the moment just remember: 
-    always use that function to secure a filename before storing it directly on the filesystem.
-
-    Source - https://flask.palletsprojects.com/en/1.1.x/patterns/fileuploads/
-    """
-    # upload path
-    img_name = secure_filename(im.filename)
-    img_path = os.path.join(app.config['UPLOAD_FOLDER'], img_name)
-    # save image
-    im.save(img_path)
-
-    return img_path
-
-
-@app.route('/')
-def home():
-    return "Hello random person"
-
-@app.route('/predict', methods=['POST'])
-def predict_uploaded_image():
-
-    """Predict Cotton Disease from image file
-    This is using docstrings for specifications.
-    ---
-    parameters:
-      - name: file
-        in: formData
-        type: file
-        required: true
-      
-    responses:
-        200:
-            description: Success
-        
-    """
-
-    # get image
-    uploaded_img = request.files['file']
-
-    # save image
-    saved_image_path = save_image(uploaded_img)
-
-    # predict class from saved path
-    pred = predict(saved_image_path)
-
-    return pred
-
-if __name__=='__main__':
-    app.run(debug=True)
+# Upload image through file uploader
+uploaded_image = st.file_uploader('Upload Image', type="jpg")
+if uploaded_image is not None:
+    u_image = Image.open(uploaded_image)
+    st.image(u_image, caption='Uploaded Image', use_column_width=True)
+    st.write('')
+    st.markdown('**Prediction:**')
+    # Label prediction
+    prediction = predict(u_image)
+    st.write(prediction)

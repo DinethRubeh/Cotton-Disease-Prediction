@@ -1,4 +1,5 @@
 # Cotton-Disease-Prediction
+Identifying Cotton disease based on cotton plant and leaf images.
 
 <p float="left">
   <img src="models/images/streamlit1.png" hspace="60" width="300" />

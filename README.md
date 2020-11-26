@@ -1,7 +1,7 @@
 # Cotton-Disease-Prediction
 
 <p float="left">
-  <img src="models/images/streamlit4.png" hspace="100" width="300" />
+  <img src="models/images/streamlit1.png" hspace="60" width="300" />
   <img src="models/images/streamlit2.png" width="400" /> 
 </p>
 

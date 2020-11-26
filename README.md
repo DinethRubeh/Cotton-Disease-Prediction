@@ -1,5 +1,10 @@
 # Cotton-Disease-Prediction
 
+<p float="left">
+  <img src="models/images/strealit2.png" width="100" />
+  <img src="models/images/strealit2" width="100" /> 
+</p>
+
 ### Data
 Cotton disease dataset: https://drive.google.com/drive/folders/1vdr9CC9ChYVW2iXp6PlfyMOGD-4Um1ue
 
